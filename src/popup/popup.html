@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Oracle Validator</title>
+    <link rel="stylesheet" href="../../styles/main.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>Oracle Validator</h1>
+      <p class="subtitle">LinkedIn + Gemini + Supabase + Stripe.</p>
+
+      <section class="config">
+        <h2>Supabase</h2>
+        <label>
+          Supabase URL
+          <input id="supabaseUrl" type="url" placeholder="https://SEU-PROJETO.supabase.co" />
+          <small>Key no storage: <code>SUPABASE_URL</code></small>
+        </label>
+
+        <label>
+          Supabase Anon Key
+          <input id="supabaseAnonKey" type="password" placeholder="SUA_SUPABASE_ANON_KEY" />
+          <small>Key no storage: <code>SUPABASE_ANON_KEY</code></small>
+        </label>
+
+        <label>
+          Seu e-mail (cliente)
+          <input id="userEmail" type="email" placeholder="seu-email@empresa.com" />
+          <small>Key no storage: <code>USER_EMAIL</code></small>
+        </label>
+      </section>
+
+      <section class="config">
+        <h2>Gemini</h2>
+        <label>
+          Gemini API Key
+          <input id="geminiApiKey" type="password" placeholder="SUA_GEMINI_API_KEY" />
+          <small>Key no storage: <code>GEMINI_API_KEY</code></small>
+        </label>
+
+        <label>
+          Modelo Gemini
+          <input id="geminiModel" type="text" placeholder="gemini-1.5-flash" />
+          <small>Key no storage: <code>GEMINI_MODEL</code></small>
+        </label>
+      </section>
+
+      <section class="config">
+        <h2>Stripe</h2>
+        <label>
+          Stripe Publishable Key
+          <input id="stripePublishableKey" type="password" placeholder="pk_live_... ou pk_test_..." />
+          <small>Key no storage: <code>STRIPE_PUBLISHABLE_KEY</code></small>
+        </label>
+
+        <label>
+          Stripe Payment Link (recomendado)
+          <input id="stripePaymentLink" type="url" placeholder="https://buy.stripe.com/..." />
+          <small>Key no storage: <code>STRIPE_PAYMENT_LINK</code></small>
+        </label>
+
+        <label>
+          Stripe Price ID (checkout direto opcional)
+          <input id="stripePriceId" type="text" placeholder="price_..." />
+          <small>Key no storage: <code>STRIPE_PRICE_ID</code></small>
+        </label>
+      </section>
+
+      <section class="actions">
+        <button id="saveConfigBtn" class="secondary">Salvar Configuração</button>
+        <button id="captureLeadBtn">Capturar + Gerar Mensagem (Gemini) + Salvar</button>
+        <button id="stripePaymentBtn" class="secondary">Abrir Pagamento Stripe</button>
+      </section>
+
+      <p id="status" role="status">Pronto.</p>
+    </main>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>
