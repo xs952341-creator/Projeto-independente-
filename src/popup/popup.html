@@ -3,78 +3,237 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Oracle Validator</title>
+    <title>Oracle Validator Pro</title>
     <link rel="stylesheet" href="../../styles/main.css" />
   </head>
   <body>
     <main class="container">
-      <h1>Oracle Validator</h1>
-      <p class="subtitle">LinkedIn + Gemini + Supabase + Stripe.</p>
+      <!-- Header -->
+      <div class="header">
+        <h1>⚡ Oracle Validator Pro</h1>
+        <p class="subtitle">LinkedIn + Gemini AI + Supabase + Stripe</p>
+      </div>
 
-      <section class="config">
-        <h2>Supabase</h2>
-        <label>
-          Supabase URL
-          <input id="supabaseUrl" type="url" placeholder="https://SEU-PROJETO.supabase.co" />
-          <small>Key no storage: <code>SUPABASE_URL</code></small>
-        </label>
+      <!-- Tabs Navigation -->
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="dashboard">
+          📊 Dashboard
+        </button>
+        <button class="tab-btn" data-tab="config">
+          ⚙️ Configuração
+        </button>
+        <button class="tab-btn" data-tab="analytics">
+          📈 Analytics
+        </button>
+      </div>
 
-        <label>
-          Supabase Anon Key
-          <input id="supabaseAnonKey" type="password" placeholder="SUA_SUPABASE_ANON_KEY" />
-          <small>Key no storage: <code>SUPABASE_ANON_KEY</code></small>
-        </label>
+      <!-- Dashboard Tab -->
+      <div class="tab-content active" id="dashboard-tab">
+        <!-- Search Bar -->
+        <div class="search-bar">
+          <input
+            id="searchLeads"
+            type="search"
+            placeholder="🔍 Buscar por nome ou cargo..."
+            data-testid="search-leads-input"
+          />
+        </div>
 
-        <label>
-          Seu e-mail (cliente)
-          <input id="userEmail" type="email" placeholder="seu-email@empresa.com" />
-          <small>Key no storage: <code>USER_EMAIL</code></small>
-        </label>
-      </section>
+        <!-- Quick Actions -->
+        <div class="card">
+          <h2>🚀 Ações Rápidas</h2>
+          <div class="actions">
+            <button id="captureLeadBtn" class="primary" data-testid="capture-lead-btn">
+              <span>📋 Capturar Lead do LinkedIn</span>
+            </button>
+            <button id="refreshDashboardBtn" class="outline small" data-testid="refresh-dashboard-btn">
+              <span>🔄 Atualizar Dashboard</span>
+            </button>
+          </div>
+        </div>
 
-      <section class="config">
-        <h2>Gemini</h2>
-        <label>
-          Gemini API Key
-          <input id="geminiApiKey" type="password" placeholder="SUA_GEMINI_API_KEY" />
-          <small>Key no storage: <code>GEMINI_API_KEY</code></small>
-        </label>
+        <!-- Stats Summary -->
+        <div class="stats-grid" id="statsGrid">
+          <div class="stat-card">
+            <div class="stat-value" id="statTotal">0</div>
+            <div class="stat-label">Total de Leads</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="statToday">0</div>
+            <div class="stat-label">Hoje</div>
+          </div>
+        </div>
 
-        <label>
-          Modelo Gemini
-          <input id="geminiModel" type="text" placeholder="gemini-1.5-flash" />
-          <small>Key no storage: <code>GEMINI_MODEL</code></small>
-        </label>
-      </section>
+        <!-- Leads List -->
+        <div class="card">
+          <h2>📋 Seus Leads</h2>
+          <div id="leadsList" data-testid="leads-list">
+            <!-- Leads will be dynamically inserted here -->
+          </div>
+        </div>
 
-      <section class="config">
-        <h2>Stripe</h2>
-        <label>
-          Stripe Publishable Key
-          <input id="stripePublishableKey" type="password" placeholder="pk_live_... ou pk_test_..." />
-          <small>Key no storage: <code>STRIPE_PUBLISHABLE_KEY</code></small>
-        </label>
+        <!-- Export Actions -->
+        <div class="card">
+          <h2>💾 Exportar Dados</h2>
+          <div class="actions">
+            <button id="exportCSVBtn" class="success small" data-testid="export-csv-btn">
+              <span>📥 Exportar para CSV</span>
+            </button>
+            <button id="exportJSONBtn" class="outline small" data-testid="export-json-btn">
+              <span>📥 Exportar para JSON</span>
+            </button>
+          </div>
+        </div>
+      </div>
 
-        <label>
-          Stripe Payment Link (recomendado)
-          <input id="stripePaymentLink" type="url" placeholder="https://buy.stripe.com/..." />
-          <small>Key no storage: <code>STRIPE_PAYMENT_LINK</code></small>
-        </label>
+      <!-- Configuration Tab -->
+      <div class="tab-content" id="config-tab">
+        <!-- Supabase Config -->
+        <div class="card">
+          <h2>🗄️ Supabase (Banco de Dados)</h2>
+          <label>
+            Supabase URL
+            <input
+              id="supabaseUrl"
+              type="url"
+              placeholder="https://SEU-PROJETO.supabase.co"
+              data-testid="supabase-url-input"
+            />
+            <small>Chave: <code>SUPABASE_URL</code></small>
+          </label>
 
-        <label>
-          Stripe Price ID (checkout direto opcional)
-          <input id="stripePriceId" type="text" placeholder="price_..." />
-          <small>Key no storage: <code>STRIPE_PRICE_ID</code></small>
-        </label>
-      </section>
+          <label>
+            Supabase Anon Key
+            <input
+              id="supabaseAnonKey"
+              type="password"
+              placeholder="SUA_SUPABASE_ANON_KEY"
+              data-testid="supabase-key-input"
+            />
+            <small>Chave: <code>SUPABASE_ANON_KEY</code></small>
+          </label>
 
-      <section class="actions">
-        <button id="saveConfigBtn" class="secondary">Salvar Configuração</button>
-        <button id="captureLeadBtn">Capturar + Gerar Mensagem (Gemini) + Salvar</button>
-        <button id="stripePaymentBtn" class="secondary">Abrir Pagamento Stripe</button>
-      </section>
+          <label>
+            Seu E-mail (Cliente)
+            <input
+              id="userEmail"
+              type="email"
+              placeholder="seu-email@empresa.com"
+              data-testid="user-email-input"
+            />
+            <small>Chave: <code>USER_EMAIL</code></small>
+          </label>
+        </div>
 
-      <p id="status" role="status">Pronto.</p>
+        <!-- Gemini Config -->
+        <div class="card">
+          <h2>🤖 Gemini AI (Geração de Mensagens)</h2>
+          <label>
+            Gemini API Key
+            <input
+              id="geminiApiKey"
+              type="password"
+              placeholder="SUA_GEMINI_API_KEY"
+              data-testid="gemini-key-input"
+            />
+            <small>Chave: <code>GEMINI_API_KEY</code></small>
+          </label>
+
+          <label>
+            Modelo Gemini
+            <input
+              id="geminiModel"
+              type="text"
+              placeholder="gemini-1.5-flash"
+              data-testid="gemini-model-input"
+            />
+            <small>Chave: <code>GEMINI_MODEL</code></small>
+          </label>
+        </div>
+
+        <!-- Stripe Config -->
+        <div class="card">
+          <h2>💳 Stripe (Pagamentos)</h2>
+          <label>
+            Stripe Publishable Key
+            <input
+              id="stripePublishableKey"
+              type="password"
+              placeholder="pk_test_... ou pk_live_..."
+              data-testid="stripe-key-input"
+            />
+            <small>Chave: <code>STRIPE_PUBLISHABLE_KEY</code></small>
+          </label>
+
+          <label>
+            Stripe Payment Link (Recomendado)
+            <input
+              id="stripePaymentLink"
+              type="url"
+              placeholder="https://buy.stripe.com/..."
+              data-testid="stripe-link-input"
+            />
+            <small>Chave: <code>STRIPE_PAYMENT_LINK</code></small>
+          </label>
+
+          <label>
+            Stripe Price ID (Checkout Direto - Opcional)
+            <input
+              id="stripePriceId"
+              type="text"
+              placeholder="price_..."
+              data-testid="stripe-price-input"
+            />
+            <small>Chave: <code>STRIPE_PRICE_ID</code></small>
+          </label>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="actions">
+          <button id="saveConfigBtn" class="primary" data-testid="save-config-btn">
+            <span>💾 Salvar Configuração</span>
+          </button>
+          <button id="stripePaymentBtn" class="secondary small" data-testid="stripe-payment-btn">
+            <span>💳 Abrir Pagamento Stripe</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Analytics Tab -->
+      <div class="tab-content" id="analytics-tab">
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-value" id="analyticsTotal">0</div>
+            <div class="stat-label">Total</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="analyticsWeek">0</div>
+            <div class="stat-label">Esta Semana</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="analyticsMonth">0</div>
+            <div class="stat-label">Este Mês</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="analyticsToday">0</div>
+            <div class="stat-label">Hoje</div>
+          </div>
+        </div>
+
+        <!-- Chart -->
+        <div class="chart-container">
+          <h3>📊 Leads Capturados (Últimos 7 Dias)</h3>
+          <div class="chart" id="leadsChart">
+            <!-- Chart bars will be dynamically inserted here -->
+          </div>
+        </div>
+
+        <!-- Refresh Analytics -->
+        <button id="refreshAnalyticsBtn" class="outline" data-testid="refresh-analytics-btn">
+          <span>🔄 Atualizar Analytics</span>
+        </button>
+      </div>
     </main>
 
     <script src="https://js.stripe.com/v3/"></script>
