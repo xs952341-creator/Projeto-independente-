@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Oracle Identity Scraper",
-  "version": "1.1.0",
-  "description": "Captura dados de perfis do LinkedIn, gera mensagem com Gemini e salva leads no Supabase.",
+  "name": "Oracle Validator Pro",
+  "version": "2.0.0",
+  "description": "Extensão profissional para captura de leads no LinkedIn com IA Gemini, Dashboard completo, Analytics e Exportação de dados.",
   "permissions": ["tabs", "activeTab", "storage"],
   "host_permissions": [
     "https://www.linkedin.com/*",
